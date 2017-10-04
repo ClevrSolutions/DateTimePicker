@@ -12,14 +12,16 @@ define([
     'dojo/dom-class',
     'dojo/dom-construct',
     'dojo/_base/lang',
+    'dojo/_base/config',
     'dojo/text',
     'dojo/html',
     "dojo/_base/array",
+    "dojo/_base/kernel",
     'DateTimePicker/lib/jquery-2.1.4',
     'DateTimePicker/lib/moment-with-locales',
     'DateTimePicker/lib/bootstrap-datetimepicker',
     'dojo/text!DateTimePicker/widget/template/DateTimePicker.html'
-], function (declare, _WidgetBase, _TemplatedMixin, dom, dojoDom, domAttr, domClass, domConstruct, lang, text, dojoHtml, dojoArray, _jQuery, moment, datetimepicker, widgetTemplate) {
+], function (declare, _WidgetBase, _TemplatedMixin, dom, dojoDom, domAttr, domClass, domConstruct, lang, config, text, dojoHtml, dojoArray, kernel, _jQuery, moment, datetimepicker, widgetTemplate) {
     'use strict';
     
     var $ = _jQuery.noConflict(true);
@@ -59,7 +61,7 @@ define([
             this._hasStarted = true;
 
             // Set moment Js locale based on current session locale
-            var mxLocale = mx.ui.getLocale();
+            var mxLocale = kernel.locale;
 
             switch(mxLocale){
                 case "nl-nl":
@@ -73,8 +75,8 @@ define([
             // set localized formatting (from dojoConfig)
             this.localizedFormat = {};
             
-            if (dojo.config.localizedMomentJSFormats) {
-                dojo.config.localizedMomentJSFormats.forEach(lang.hitch(this, function(format) {
+            if (config.localizedMomentJSFormats) {
+                config.localizedMomentJSFormats.forEach(lang.hitch(this, function(format) {
                     if (format.locale == mxLocale) {
                         this.localizedFormat = format;
                     }
@@ -134,7 +136,7 @@ define([
                 stepping:       this.minutesteps,
                 locale:         this.locale,
                 useStrict:      true,
-                widgetParent:   $('.ms-wrapper'),
+                widgetParent:   $('.input-group.date'),
                 icons: 					{
                 									close: 'glyphicon glyphicon-ok'
                 								},
@@ -256,14 +258,20 @@ define([
                 if (this.currentValue.valueOf() != selectedDate.valueOf()) {
                     this.currentValue = selectedDate;
                     this._contextObj.set(this.attribute, this.currentValue);
-                    this._contextObj.save({ callback : function () {}});
+                    mx.data.commit({
+                        mxobj: this._contextObj,
+                        callback: function() {}
+                    });
                     this.execmf();                    
                 }
             } else {
                 if (this.currentValue.valueOf() !== null) {
                     this.currentValue = '';
                     this._contextObj.set(this.attribute, this.currentValue);
-                    this._contextObj.save({ callback : function () {}});
+                    mx.data.commit({
+                        mxobj: this._contextObj,
+                        callback: function() {}
+                    });
                     this.execmf();  
                 }
             }
