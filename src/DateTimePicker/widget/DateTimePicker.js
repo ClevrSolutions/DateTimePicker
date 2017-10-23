@@ -54,7 +54,7 @@ define([
 
         postCreate: function () {
             console.log(this.id + ".postCreate");
-
+            
             if (this._hasStarted)
                 return;
 
@@ -73,9 +73,9 @@ define([
             } 
             
             // set localized formatting (from dojoConfig)
-            this.localizedFormat = {};
+            this.localizedFormat = null;
             
-            if (config.localizedMomentJSFormats) {
+            if (config.localizedMomentJSFormats) { // This does not exist in dojo and so may not be used
                 config.localizedMomentJSFormats.forEach(lang.hitch(this, function(format) {
                     if (format.locale == mxLocale) {
                         this.localizedFormat = format;
@@ -114,6 +114,7 @@ define([
             
             if (this.customformat != '') {
                 domAttr.set(this.relativeNode, 'data-date-format', this.customformat);
+                this.format = this.customformat;
             }
 
             this.renderPicker();
