@@ -138,9 +138,13 @@ define([
                 locale:         this.locale,
                 useStrict:      true,
                 widgetParent:   $('.input-group.date'),
-                icons: 					{
-                									close: 'glyphicon glyphicon-ok'
-                								},
+                widgetPositioning: {
+                    horizontal: 'left',
+                    vertical: 'auto'
+                },
+                icons: {
+                	close: 'glyphicon glyphicon-ok'
+                },
                 showClose:			this.closeButton,
                 showClear:			this.clearButton,
                 toolbarPlacement: this.toolbarPlacement ? this.toolbarPlacement : "bottom"
@@ -162,23 +166,20 @@ define([
 						
 				    $(this.relativeNode).on("dp.show", lang.hitch(this, function() {
 				        var widget = $('.bootstrap-datetimepicker-widget');
-				        var top = ($(this.relativeNode).offset().top-300);
-				        var left = $(this.relativeNode).offset().left;
-				        if($(this.relativeNode).offset().top - 400 <= 0) { //display below if not enough room above
-				            top = $(this.relativeNode).offset().top+$(this.relativeNode).height()+10;
-				            widget.removeClass('top');
-				            widget.addClass('bottom');
-				        } else {
-				            widget.addClass('top');
-				            widget.removeClass('bottom');
-				        }
+				        // var top = ($(this.relativeNode).bottom);
+				        // var left = $(this.relativeNode).margin-left;
+				        // if($(this.relativeNode).offset().top - 400 <= 0) { //display below if not enough room above
+				        //     // top = $(this.relativeNode).offset().top+$(this.relativeNode).height()+10;
+				        //     widget.removeClass('top');
+				        //     widget.addClass('bottom');
+				        // } else {
+				        //     widget.addClass('top');
+				        //     widget.removeClass('bottom');
+				        // }
 				        
 				        widget.css(
 				        {
-				            'top':top+'px',
-				            'left':left+'px',
-				            'bottom':'auto',
-				            'right':'auto'
+				            'left': 0
 				        });
 				        this._clearValidations;
 				    } ));
