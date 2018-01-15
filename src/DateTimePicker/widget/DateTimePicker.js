@@ -260,20 +260,20 @@ define([
                 if (this.currentValue.valueOf() != selectedDate.valueOf()) {
                     this.currentValue = selectedDate;
                     this._contextObj.set(this.attribute, this.currentValue);
-                    mx.data.commit({
-                        mxobj: this._contextObj,
-                        callback: function() {}
-                    });
+                    // mx.data.commit({
+                    //     mxobj: this._contextObj,
+                    //     callback: function() {}
+                    // });
                     this.execmf();                    
                 }
             } else {
                 if (this.currentValue.valueOf() !== null) {
                     this.currentValue = '';
                     this._contextObj.set(this.attribute, this.currentValue);
-                    mx.data.commit({
-                        mxobj: this._contextObj,
-                        callback: function() {}
-                    });
+                    // mx.data.commit({
+                    //     mxobj: this._contextObj,
+                    //     callback: function() {}
+                    // });
                     this.execmf();  
                 }
             }
