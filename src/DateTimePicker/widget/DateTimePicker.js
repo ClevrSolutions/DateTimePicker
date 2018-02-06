@@ -82,7 +82,7 @@ define([
                     }
                 }));
             }
-            
+            domClass.add(this.relativeNode, `${this.id}`);
             domClass.add(this.domNode, 'DateTimePickerWidget');
             domAttr.set(this.domNode, 'tabIndex', '-1'); 
             
@@ -137,7 +137,7 @@ define([
                 stepping:       this.minutesteps,
                 locale:         this.locale,
                 useStrict:      true,
-                widgetParent:   $('.input-group.date'),
+                widgetParent:   $(`.${this.id}.input-group.date`),
                 widgetPositioning: {
                     horizontal: 'left',
                     vertical: 'auto'
